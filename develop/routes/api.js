@@ -1,3 +1,28 @@
+const router = require("express").Router();
+const Workout = require("../models/workout.js");
+
+router.route("/api/workouts").post((req, res) => {
+  Workout.create({});
+});
+
+router.route("/api/workouts/:id").put(({ body, params }, res) => {
+  Workout.findByIdAndUpdate();
+});
+
+router.route("/api/workouts").get((req, res) => {
+  Workout.find();
+});
+
+router.route("/api/workouts/range").get((req, res) => {
+  Workout.find({}).limit(7);
+});
+
+router.route("/api/workouts").delete(({ body }, res) => {
+  Workout.findByIdAndDelete(body.id);
+});
+
+module.exports = router;
+
 const API = {
   async getLastWorkout() {
     let res;
@@ -42,29 +67,3 @@ const API = {
     return json;
   },
 };
-
-const router = require("express").Router();
-const Workout = require("../models/workout.js");
-​
-router.post("/api/workouts", (req, res) => {
-  Workout.create({});
-​
-});
-​
-router.put("/api/workouts/:id", ({ body, params }, res) => {
-  Workout.findByIdAndUpdate();
-});
-​
-router.get("/api/workouts", (req, res) => {
-  Workout.find();
-});
-​
-router.get("/api/workouts/range", (req, res) => {
-  Workout.find({}).limit(7);
-});
-​
-router.delete("/api/workouts", ({ body }, res) => {
-  Workout.findByIdAndDelete(body.id);
-});
-​
-module.exports = router;
